@@ -36,6 +36,7 @@
                             @endif
                         @endforeach
                     </select>
+                    <small class="text-danger">{{ $errors->first('cat_id') }}</small>
                 </div>
 
                 <div class="col-md-3">
@@ -45,6 +46,7 @@
                 <div class="col-md-3">
                     {{ Form::label('img', 'Images:') }}
                     <input type="file" name="img[]"  multiple="multiple" >
+                    <small class="text-danger">{{ $errors->first('img') }}</small>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -54,6 +56,7 @@
                                 <option id="brand_id" value="{{$brand->id}}" selected="selected">{{ $brand->title }}</option>
                             @endforeach
                         </select>
+                        <small class="text-danger">{{ $errors->first('brand_id') }}</small>
                     </div>
                     <div class="col-md-4">
                         {{ Form::label('qti','quantity') }}

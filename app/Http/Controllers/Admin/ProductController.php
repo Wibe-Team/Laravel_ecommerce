@@ -8,6 +8,7 @@ use App\AdminModels\Product;
 use App\AdminModels\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\MessageBag;
 
 class ProductController extends Controller
 {
@@ -29,8 +30,14 @@ class ProductController extends Controller
     public function store (Request $request) {
         $request->validate ([
             'title' => 'required|max:255',
-            'desc' => 'required',
+            'desc' => 'required|max:255',
+            'price' => 'required',
+            'qti' => 'integer',
+            'img' => 'required',
+            'cat_id' => 'required',
+            'brand_id' => 'required',
         ]);
+
         //предварительная работа с чекбоксами и изображениями ведется в Http/Provides/AppServiceProvider
         $product = Product::create($request->all());
 
@@ -70,6 +77,11 @@ class ProductController extends Controller
         $request->validate ([
             'title' => 'max:255',
             'desc' => 'max:255',
+            'price' => 'required',
+            'qti' => 'integer',
+            'img' => 'required',
+            'cat_id' => 'required',
+            'brand_id' => 'required',
         ]);
 
         $product = Product::find($id);
@@ -106,5 +118,18 @@ class ProductController extends Controller
     {
         $category = Category::find($id);
         return view('admin.product.category-filter',compact('category'));
+    }
+
+    public function HitFilter()
+    {
+        $products = Product::where('hit', 1)->get();
+
+        return view('admin.product.hit-filter',compact('products'));
+    }
+
+    public function NewFilter()
+    {
+        $products = Product::where('new', 1)->get();
+        return view('admin.product.new-filter',compact('products'));
     }
 }

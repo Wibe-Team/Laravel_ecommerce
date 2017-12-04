@@ -7,6 +7,20 @@
                         <div class="panel-heading">
                             <a href="{{ route('admin.prod.create') }}" class="btn btn-primary btn-xs pull-right">+Create Product</a>
                             My Products
+                            {!! Form::open(['route' => 'admin.search.filter']) !!}
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        {{ Form::text('search', null, array('class' => 'form-control', 'required' => '', 'maxlength' => '150')) }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ Form::submit('Search', array('class' => 'btn btn-success btn-sm btn-block')) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {!! Form::close() !!}
+
                         </div>
                 </div>
                 <div class="row">
@@ -57,11 +71,25 @@
                                             {{ $order->id }}
                                         @endforeach
                                     </td>
-                                    <td>{{ $product->brand['title'] }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.brand.filter',$product->brand->id) }}">{{ $product->brand['title'] }}</a>
+                                    </td>
                                     <td>{{ $product->price }}</td>
                                     <td>{{ $product->qti }}</td>
-                                    <td>{{ $product->hit }}</td>
-                                    <td>{{ $product->new }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.hit.filter') }}">
+                                            @if($product->hit === 1)
+                                                <strong>hit</strong>
+                                            @endif
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.new.filter') }}">
+                                            @if($product->new === 1)
+                                                <strong>new</strong>
+                                            @endif
+                                        </a>
+                                    </td>
                                     <td>
                                         @foreach(explode(' ', $product->img) as $image)
                                             <img src="{{asset("images/$image" )}}" alt="No image" style="width: 50px; height: 50px;">

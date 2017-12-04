@@ -53,8 +53,9 @@ class TagController extends Controller
         Tag::find($id)->delete();
     }
 
-    public function TagFilter ()
+    public function TagFilter ($id)
     {
-        return true;
+        $tags = Tag::find($id);
+        return view('admin.product.tag-filter',compact('tags'));
     }
 }

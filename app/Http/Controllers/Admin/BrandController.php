@@ -72,4 +72,10 @@ class BrandController extends Controller
         Brand::find($id)->delete();
         return redirect('admin/brand');
     }
+
+    public function BrandFilter ($id)
+    {
+        $brands = Brand::find($id);
+        return view('admin.product.brand-filter',compact('brands'));
+    }
 }
