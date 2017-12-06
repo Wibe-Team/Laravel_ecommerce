@@ -68,6 +68,13 @@ Route::namespace('Admin')->middleware('checkAdminRole')->group(function ()
     Route::get('/admin/post/hit','ProductController@HitFilter')->name('admin.hit.filter');
     Route::get('/admin/post/new','ProductController@NewFilter')->name('admin.new.filter');
     Route::post('/admin/post/search','ProductController@ProductSearch')->name('admin.search.filter');
+
+    //order routes
+    //Product CRUD routes
+    Route::get('/admin/order','OrderAdminController@index')->name('admin.order');
+    Route::get('/admin/order/{id}','OrderAdminController@show')->name('admin.order.show');
+    Route::patch('/admin/order/{id}', 'OrderAdminController@ApprovedOrder')->name('admin.order.approved');
+    Route::delete('/admin/order/{id}','OrderAdminController@destroy')->name('admin.order.delete');
 });
 
 //ordering product create
